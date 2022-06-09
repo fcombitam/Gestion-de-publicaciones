@@ -10,6 +10,7 @@ use App\Models\Tag;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\PostUser;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,11 +19,13 @@ use Spatie\Permission\Models\Role;
 
 class PostController extends Controller
 {
+
+    use WithPagination;
+
     public function __construct(){
         $this->middleware('can:admin.posts.index')->only('index');
         $this->middleware('can:admin.posts.destroy')->only('destroy');
         $this->middleware('can:admin.posts.create')->only('create','store');
-        $this->middleware('can:admin.posts.edit')->only('edit','update');
     }
     /**
      * Display a listing of the resource.
@@ -87,26 +90,31 @@ class PostController extends Controller
      */
     public function edit(Post $post,Role $role)
     {
-        $role = Role::all();
+        
         //PREGUNTAR : $this->authorize('author',$post);
         $categories = Category::pluck('name','id');
         $tags = Tag::all();
 
-        
+        //$user = auth()->user();
 
-        return view ('admin.posts.edit', compact('post','categories','tags','role'));
+        //$user->posts()->attach($post->id);
+
+        //$favorites->users()->attach($post->id);
+
+        //return $favorites;
+
+        return view ('admin.posts.edit', compact('post','categories','tags'));
     }
 
     public function editable(Post $post,Role $role)
     {
-        $role = Role::all();
-        $this->authorize('author',$post);
+        
         $categories = Category::pluck('name','id');
         $tags = Tag::all();
 
         
 
-        return view ('admin.posts.editable', compact('post','categories','tags','role'));
+        return view ('admin.posts.editable', compact('post','categories','tags'));
     }
 
     
@@ -121,7 +129,7 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
 
-        $this->authorize('author',$post);
+        
 
         $post->update($request->all());
 
@@ -145,7 +153,7 @@ class PostController extends Controller
             $post->tags()->sync($request->tags);
         }
 
-        return redirect()->route('admin.posts.edit', $post)->with('info','Actualizacion completada');
+        return redirect()->route('admin.posts.index', $post)->with('info','Actualizacion completada');
     }
 
     /**
@@ -157,10 +165,27 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
-        $this->authorize('author',$post);
+        //$this->authorize('author',$post);
 
         
         $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('info','Se elimino correctamente');
+    }
+
+    public function favorites(Post $post,Role $role)
+    {
+        $user = auth()->user();
+
+        $posts = $user->favorites('user_id','post_id')->paginate();
+
+        return view ('admin.posts.favorites', compact('posts'));
+    }
+
+    public function eliminate(Post $post)
+    {
+   
+        $post->favorites()->delete();
 
         return redirect()->route('admin.posts.index')->with('info','Se elimino correctamente');
     }

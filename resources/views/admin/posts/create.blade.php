@@ -39,6 +39,28 @@
                 </div>
 
                 <div class="form-group">
+                    {!! Form::label('precio','Precio') !!}
+                    {!! Form::number('precio',null,['class'=>'form-control','placeholder'=>'Ingrese precio de Producto (solo numeros)']) !!}
+
+                    @error('precio')
+
+                        <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('cantidad','Cantidad') !!}
+                    {!! Form::number('cantidad',null,['class'=>'form-control','placeholder'=>'Ingrese cantidad de Producto']) !!}
+
+                    @error('cantidad')
+
+                        <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     {!! Form::label('category_id','Categoria') !!}
                     {!! Form::select('category_id',$categories,null,['class'=>'form-control']) !!}
 

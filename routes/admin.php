@@ -25,3 +25,4 @@ Route::get('posts/{post}',[PostController::class, 'editable'])->name('admin.post
 
 Route::get('solicitudes',[SolicitudesController::class, 'index'])->name('admin.posts.solicitudes');
 
+Route::get('favorites',[PostController::class, 'favorites'])->name('admin.posts.favorites');

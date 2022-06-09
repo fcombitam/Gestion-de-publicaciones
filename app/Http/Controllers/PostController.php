@@ -51,7 +51,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
 
-        $this->authorize('published',$post);
+        //$this->authorize('published',$post);
 
         $similares = Post::where('category_id',$post->category_id)
                             ->where('status',1)
@@ -110,5 +110,19 @@ class PostController extends Controller
         $posts = $tag->posts()->where('status',2)->latest('id')->paginate(4);
 
         return view('posts.tag', compact('posts', 'tag'));
+    }
+
+    public function favorites(Post $post)
+    {
+        
+        //PREGUNTAR : $this->authorize('author',$post);
+
+        $user = auth()->user();
+
+        $user->favorites()->attach($post->id);
+
+        
+
+        return redirect()->route('posts.index');
     }
 }

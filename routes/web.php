@@ -12,7 +12,7 @@ Route::get('category/{category}',[PostController::class, 'category'])->name('pos
 
 Route::get('tag/{tag}',[PostController::class, 'tag'])->name('posts.tag');
 
-
+Route::get('favorites/{post}',[PostController::class, 'favorites'])->name('posts.favorites');
 
 
 

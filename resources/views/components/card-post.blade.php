@@ -7,6 +7,12 @@
 		@endif
 
 		<div class="px-6 py-4">
+			<div class="text-gray-700 text-base">
+				$ {{$post->precio}}
+			</div>
+			<div class="text-gray-700 text-base">
+				Disponible: {{$post->cantidad}}
+			</div>
 			<h1 class="font-bold text-xl mb-2">
 				<a href="{{route('posts.show',$post)}}">
 					{{$post->name}}
