@@ -29,9 +29,11 @@ class PostRequest extends FormRequest
         $rules = [
             'category_id' => 'required',
             'name' => 'required',
-            'slug' => 'required|unique:posts',
+            'slug' => 'required|unique:posts,slug',
             'description' => 'required',
             'long_description' => 'required',
+            'precio' => 'required',
+            'cantidad' => 'required',
             'tags' => 'required',
             'file' => 'image',
             'status' => 'required'

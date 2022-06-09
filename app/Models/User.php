@@ -61,7 +61,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    
+
     public function posts(){
         return $this->hasMany(Post::class);
+    }
+
+    public function favorites(){
+        return $this->belongsToMany(Post::class);
     }
 }

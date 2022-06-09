@@ -19,6 +19,8 @@ class CreatePostsTable extends Migration
             $table->String('slug');
             $table->text('description');
             $table->longText('long_description');
+            $table->integer('precio');
+            $table->integer('cantidad');
             $table->enum('status',[1,2,3])->default(2);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');

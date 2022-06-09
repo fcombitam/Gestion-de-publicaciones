@@ -292,6 +292,11 @@ return [
             'icon' => 'fas fa-fw fa-file',
             'can'  => 'admin.posts.solicitudes'
         ],
+        [
+            'text'       => 'favoritos',
+            'route'      => 'admin.posts.favorites',
+            'icon' => 'fas fa-fw fa-file'
+        ],
     ],
 
     /*
