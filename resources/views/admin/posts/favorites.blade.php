@@ -46,15 +46,6 @@
                                 <td width="10px">
                                     <a href="{{route('posts.show',$post)}}" class="btn btn-primary btn-sm">Detalle</a>
                                 </td>
-                                <td width="10px">
-                                     
-                                    <form action="{{route('admin.posts.eliminate',$post)}}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                    </form>
-                                    
-                                </td>
                             </tr>
                     @endforeach
                 </tbody>
